@@ -74,6 +74,30 @@
                 </div>
             </section>
         </main>
+
+        <section class="partnership-section">
+            <div class="partnership-container">
+                <h2>Partnership Inquiry</h2>
+                <p>Interested in working together? Send us a message.</p>
+                <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" id="partnershipForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="partnerName">Name</label>
+                            <input type="text" name="name" id="partnerName" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerEmail">Email</label>
+                            <input type="email" name="email" id="partnerEmail" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerMessage">Message</label>
+                        <textarea name="message" id="partnerMessage" rows="4" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                </form>
+            </div>
+        </section>
     </div>
     <script src="./jsfile.js"></script>
 </body>

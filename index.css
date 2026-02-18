@@ -298,3 +298,44 @@ small {
 .btn-buy:hover {
     background-color: var(--primary-hover);
 }
+
+/* Partnership Section */
+.partnership-section {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.partnership-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.partnership-container h2 {
+    margin-bottom: 0.5rem;
+}
+
+.partnership-container p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.partnership-container form {
+    text-align: left;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
