@@ -27,9 +27,11 @@ header {
     padding: 0 20px;
 }
 
-.logo img {
-    height: 45px;
-    vertical-align: middle;
+.logo h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: 700;
+    margin: 0;
 }
 
 nav ul {
