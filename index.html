@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>운신의 한수 - 평생사주</title>
+    <title>운신의 한수 - 신년운세 포털</title>
     <link rel="stylesheet" href="./index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,10 @@
 <body>
     <header class="top-nav">
         <div class="nav-container">
-            <div class="logo">운신<span>운세의 신</span></div>
+            <div class="logo" id="homeLogo" style="cursor: pointer;">운신<span>운세의 신</span></div>
             <nav class="menu-desktop">
-                <a href="#">홈</a>
-                <a href="#">신년운세</a>
+                <a href="#" class="nav-home active">홈</a>
+                <a href="#" class="nav-newyear">신년운세</a>
                 <a href="#">월간운세</a>
                 <a href="#">궁합</a>
                 <a href="#">오늘의 운세</a>
@@ -30,8 +30,91 @@
     </header>
 
     <div class="app-container">
-        <main class="saju-layout">
-            <!-- Left Section: Service Intro -->
+        <!-- Service Grid Section (Home) -->
+        <section id="homeSection" class="service-grid-container">
+            <h2 class="main-title">인기 운세 서비스</h2>
+            <div class="service-grid">
+                <!-- Card 1 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="card-info">
+                        <span class="card-category">[3개월 후의 미래]</span>
+                        <div class="card-price">13,000<span>원</span></div>
+                        <p class="card-desc">2026년 12개월을 관통하는 미래</p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267923af?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="card-info">
+                        <span class="card-category">[프리미엄 동양운세]</span>
+                        <div class="card-price">6,500<span>원</span></div>
+                        <p class="card-desc">2026년 일년 연애운</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="card-info">
+                        <span class="card-category">[사주명리학]</span>
+                        <div class="card-price">5,500<span>원</span></div>
+                        <p class="card-desc">2026년, 이제는 나도 연애하고 싶다!</p>
+                    </div>
+                </div>
+                <!-- Card 4 (Free) -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img free" style="background-image: url('https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=400&q=80');">
+                        <span class="badge-free">무료</span>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-category">[직장 상사운]</span>
+                        <div class="card-price free">0<span>원</span></div>
+                        <p class="card-desc">사주의 흐름과 함께 조금씩 바뀌는 우천...</p>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="card-info">
+                        <span class="card-category">[자미두수]</span>
+                        <div class="card-price">13,000<span>원</span></div>
+                        <p class="card-desc">자미두수로 보는 내 2026년</p>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="card-info">
+                        <span class="card-category">[토정비결]</span>
+                        <div class="card-price">6,500<span>원</span></div>
+                        <p class="card-desc">2026년 토정비결 해법풀이</p>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="card-info">
+                        <span class="card-category">[사주명리학]</span>
+                        <div class="card-price">13,000<span>원</span></div>
+                        <p class="card-desc">사주로 보는 내 2026년</p>
+                    </div>
+                </div>
+                <!-- Card 8 -->
+                <div class="service-card saju-trigger">
+                    <div class="card-img free" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=80');">
+                        <span class="badge-free">무료</span>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-category">[금전궁합]</span>
+                        <div class="card-price free">0<span>원</span></div>
+                        <p class="card-desc">나와 배우자의 사주와 연봉을 조합한...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Form Section (Sub-page) -->
+        <main id="analysisSection" class="saju-layout" style="display: none;">
             <section class="info-section">
                 <div class="service-image">
                     <div class="image-placeholder">
@@ -39,95 +122,34 @@
                     </div>
                 </div>
                 <h2 class="service-title">평생사주</h2>
-                
                 <div class="service-intro">
                     <h3>운세 소개</h3>
                     <p>나의 인생 전반에 걸쳐진 총운과 성격, 재물, 건강 등 모든 것을 AI가 심층 분석하여 자세하게 알려드립니다.</p>
                 </div>
-
                 <div class="service-tags">
                     <h3>운세태그</h3>
                     <div class="tag-list">
-                        <span class="tag">#사주</span>
-                        <span class="tag">#동양운세</span>
-                        <span class="tag">#프리미엄</span>
-                        <span class="tag">#AI분석</span>
+                        <span class="tag">#사주</span><span class="tag">#동양운세</span><span class="tag">#프리미엄</span><span class="tag">#AI분석</span>
                     </div>
                 </div>
+                <button class="btn-back" id="btnBack">← 뒤로가기</button>
             </section>
 
-            <!-- Right Section: Input Form -->
             <section class="form-section">
                 <h2 class="form-title">본인</h2>
                 <form id="sajuForm">
-                    <div class="input-group">
-                        <input type="text" id="userName" placeholder="이름을 입력하세요" required>
-                    </div>
-
-                    <div class="input-group">
-                        <select id="gender" required>
-                            <option value="male">남자</option>
-                            <option value="female">여자</option>
-                        </select>
-                    </div>
-
-                    <div class="date-row">
-                        <select id="birthYear" required></select>
-                        <select id="birthMonth" required></select>
-                        <select id="birthDay" required></select>
-                    </div>
-
-                    <div class="input-group">
-                        <select id="birthHour" required>
-                            <option value="unknown">모름 (태어난 시간)</option>
-                            <option value="0">00시 (자시)</option>
-                            <option value="1">01시</option>
-                            <option value="2">02시 (축시)</option>
-                            <option value="3">03시</option>
-                            <option value="4">04시 (인시)</option>
-                            <option value="5">05시</option>
-                            <option value="6">06시 (묘시)</option>
-                            <option value="7">07시</option>
-                            <option value="8">08시 (진시)</option>
-                            <option value="9">09시</option>
-                            <option value="10">10시 (사시)</option>
-                            <option value="11">11시</option>
-                            <option value="12">12시 (오시)</option>
-                            <option value="13">13시</option>
-                            <option value="14">14시 (미시)</option>
-                            <option value="15">15시</option>
-                            <option value="16">16시 (신시)</option>
-                            <option value="17">17시</option>
-                            <option value="18">18시 (유시)</option>
-                            <option value="19">19시</option>
-                            <option value="20">20시 (술시)</option>
-                            <option value="21">21시</option>
-                            <option value="22">22시 (해시)</option>
-                            <option value="23">23시</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <select id="calendarType">
-                            <option value="solar">양력</option>
-                            <option value="lunar">음력</option>
-                        </select>
-                    </div>
-
+                    <div class="input-group"><input type="text" id="userName" placeholder="이름을 입력하세요" required></div>
+                    <div class="input-group"><select id="gender" required><option value="male">남자</option><option value="female">여자</option></select></div>
+                    <div class="date-row"><select id="birthYear" required></select><select id="birthMonth" required></select><select id="birthDay" required></select></div>
+                    <div class="input-group"><select id="birthHour" required><option value="unknown">모름 (태어난 시간)</option><script>for(let i=0;i<24;i++)document.write(`<option value="${i}">${i.toString().padStart(2,'0')}시</option>`);</script></select></div>
+                    <div class="input-group"><select id="calendarType"><option value="solar">양력</option><option value="lunar">음력</option></select></div>
                     <button type="submit" class="btn-submit">결과보기</button>
                 </form>
-
-                <div id="loading" class="loading-overlay" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>운명을 분석하고 있습니다...</p>
-                </div>
+                <div id="loading" class="loading-overlay" style="display: none;"><div class="spinner"></div><p>분석 중...</p></div>
             </section>
         </main>
 
-        <!-- Analysis Results Section -->
-        <section id="resultArea" class="result-display" style="display: none;">
-            <!-- Results will be injected here -->
-        </section>
+        <section id="resultArea" class="result-display" style="display: none;"></section>
 
         <section class="comments-section">
             <div id="disqus_thread"></div>
