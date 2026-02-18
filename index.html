@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘의 사주 - 운세 서비스</title>
+    <title>천명의 구슬 - AI 심층 사주 분석</title>
     <link rel="stylesheet" href="./index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="theme-toggle-container">
@@ -19,8 +19,15 @@
     
     <div class="app-container">
         <header class="app-header">
-            <h1>오늘의 사주</h1>
-            <p>당신의 생년월일시를 입력하여 오늘과 미래의 운세를 확인해보세요.</p>
+            <div class="mystic-orb-container">
+                <div class="mystic-orb">
+                    <div class="orb-inner"></div>
+                    <div class="orb-glow"></div>
+                    <div class="orb-sparkles"></div>
+                </div>
+            </div>
+            <h1>천명의 구슬</h1>
+            <p class="subtitle">하늘이 내린 당신의 운명, AI가 심층 분석합니다</p>
         </header>
         
         <main class="main-content">
@@ -28,67 +35,75 @@
                 <form id="sajuForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="birthDate">생년월일</label>
+                            <label for="birthDate">📅 생년월일</label>
                             <input type="date" id="birthDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="calendarType">양력/음력</label>
+                            <label for="calendarType">☯️ 양력/음력</label>
                             <select id="calendarType">
-                                <option value="solar">양력</option>
-                                <option value="lunar">음력</option>
+                                <option value="solar">양력 (Solar)</option>
+                                <option value="lunar">음력 (Lunar)</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="birthHour">태어난 시 (0~23시)</label>
-                            <input type="number" id="birthHour" min="0" max="23" placeholder="예: 14" required>
+                            <label for="birthHour">⏰ 태어난 시</label>
+                            <select id="birthHour">
+                                <option value="unknown">모름 (시간 미지)</option>
+                                <script>
+                                    for(let i=0; i<24; i++) {
+                                        document.write(`<option value="${i}">${i}시</option>`);
+                                    }
+                                </script>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="birthMinute">태어난 분 (0~59분)</label>
-                            <input type="number" id="birthMinute" min="0" max="59" placeholder="예: 30" required>
+                            <label for="gender">👤 성별</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="male" checked> 남성
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="female"> 여성
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="gender">성별</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="gender" value="male" checked> 남성
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="gender" value="female"> 여성
-                            </label>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-large">운세 분석하기</button>
+                    <button type="submit" class="btn btn-mystic">운명의 문 열기</button>
                 </form>
 
-                <div id="loading" class="loading-spinner" style="display: none;">사주 정보를 분석하고 있습니다...</div>
+                <div id="loading" class="mystic-loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>별자리의 기운과 오행의 흐름을 읽는 중입니다...</p>
+                </div>
 
                 <div id="resultArea" class="result-area" style="display: none;">
-                    <hr>
-                    <h2>분석 결과</h2>
-                    <div class="result-card">
-                        <p id="resultText">데이터 분석 중입니다...</p>
-                    </div>
+                    <!-- Result will be injected here -->
                 </div>
             </section>
         </main>
 
-        <section class="comments-section">
-            <div id="disqus_thread"></div>
-            <script>
-                (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://random-5k5vybaxyf.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-                })();
-            </script>
-        </section>
+        <footer class="app-footer">
+            <div class="disclaimer">
+                <p>⚠️ 본 서비스는 AI 알고리즘에 기반한 참고용 분석이며, 실제 삶의 결정 기준이 될 수 없습니다. 결과에 대한 법적 책임은 지지 않으며, 재미와 자기 성찰의 용도로만 활용해 주시기 바랍니다.</p>
+                <p>&copy; 2026 천명의 구슬. All rights reserved.</p>
+            </div>
+            
+            <section class="comments-section">
+                <div id="disqus_thread"></div>
+                <script>
+                    (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://random-5k5vybaxyf.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+            </section>
+        </footer>
     </div>
     <script src="./jsfile.js"></script>
 </body>
