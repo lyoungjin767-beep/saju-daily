@@ -41,19 +41,6 @@ body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--bg-body)
 .dot { width: 8px; height: 8px; background-color: rgba(0,0,0,0.3); border-radius: 50%; cursor: pointer; }
 .dot.active { background-color: var(--primary-color); }
 
-/* Icon Menu */
-.icon-menu { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; background: var(--bg-white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-.icon-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1 1 0; min-width: 70px; /* Ensure icons don't get too small */ }
-.icon-circle { width: 50px; height: 50px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: transform 0.2s; }
-.icon-item:hover .icon-circle { transform: translateY(-5px); }
-.icon-item span { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); text-align: center; }
-
-/* Event Banner */
-.event-banner { background: #333; color: white; padding: 1.2rem 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; cursor: pointer; }
-.event-content h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-.event-content p { font-size: 0.85rem; opacity: 0.8; }
-.event-arrow { font-size: 1.5rem; }
-
 /* Special Offers (오늘만 반값) */
 .section-label { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; padding-left: 0.5rem; border-left: 4px solid var(--primary-color); }
 .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
