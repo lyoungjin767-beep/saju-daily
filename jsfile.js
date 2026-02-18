@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
-    const form = document.getElementById('productForm');
-    const resetBtn = document.getElementById('resetBtn');
+    const generateBtn = document.getElementById('generateBtn');
+    const resetHistoryBtn = document.getElementById('resetHistoryBtn');
+    const numbersDisplay = document.getElementById('numbersDisplay');
+    const historyList = document.getElementById('historyList');
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
-    
+
     // Theme Handling
     const currentTheme = localStorage.getItem('theme') || 'light';
     if (currentTheme === 'dark') {
@@ -35,84 +37,77 @@ document.addEventListener('DOMContentLoaded', () => {
             themeText.textContent = 'Dark Mode';
         }
     }
-    
-    // Inputs
-    const inputs = {
-        name: document.getElementById('productName'),
-        price: document.getElementById('productPrice'),
-        description: document.getElementById('productDescription'),
-        image: document.getElementById('productImage')
-    };
 
-    // Preview Elements
-    const preview = {
-        name: document.getElementById('previewName'),
-        price: document.getElementById('previewPrice'),
-        description: document.getElementById('previewDescription'),
-        image: document.getElementById('previewImage')
-    };
+    // Lotto Logic
+    let history = JSON.parse(localStorage.getItem('lottoHistory') || '[]');
+    updateHistoryUI();
 
-    const DEFAULT_IMAGE = 'https://via.placeholder.com/300x200?text=Product+Image';
-
-    // Event Listeners for Live Preview
-    Object.keys(inputs).forEach(key => {
-        inputs[key].addEventListener('input', updatePreview);
+    generateBtn.addEventListener('click', () => {
+        const numbers = generateLottoNumbers();
+        displayNumbers(numbers);
+        addToHistory(numbers);
     });
 
-    // Handle Form Reset
-    resetBtn.addEventListener('click', () => {
-        form.reset();
-        updatePreview();
+    resetHistoryBtn.addEventListener('click', () => {
+        history = [];
+        localStorage.removeItem('lottoHistory');
+        updateHistoryUI();
     });
 
-    // Handle Form Submit (Simulation)
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const productData = {
-            name: inputs.name.value,
-            price: parseFloat(inputs.price.value),
-            description: inputs.description.value,
-            image: inputs.image.value || DEFAULT_IMAGE,
-            createdAt: new Date().toISOString()
-        };
-
-        console.log('Product Created:', productData);
-        alert('Product saved successfully! (Check console for data)');
-    });
-
-    // Update Logic
-    function updatePreview() {
-        // Name
-        preview.name.textContent = inputs.name.value || 'Product Name';
-        
-        // Price
-        const priceValue = parseFloat(inputs.price.value);
-        preview.price.textContent = isNaN(priceValue) 
-            ? '$0.00' 
-            : `$${priceValue.toFixed(2)}`;
-        
-        // Description
-        preview.description.textContent = inputs.description.value || 'Product description will appear here...';
-        
-        // Image
-        if (inputs.image.value && isValidUrl(inputs.image.value)) {
-            preview.image.src = inputs.image.value;
-            preview.image.onerror = () => {
-                preview.image.src = DEFAULT_IMAGE;
-            };
-        } else {
-            preview.image.src = DEFAULT_IMAGE;
+    function generateLottoNumbers() {
+        const nums = new Set();
+        while(nums.size < 6) {
+            nums.add(Math.floor(Math.random() * 45) + 1);
         }
+        return Array.from(nums).sort((a, b) => a - b);
     }
 
-    // Helper: Simple URL validation
-    function isValidUrl(string) {
-        try {
-            new URL(string);
-            return true;
-        } catch (_) {
-            return false;
+    function getBallColor(num) {
+        if (num <= 10) return 'var(--ball-1)';
+        if (num <= 20) return 'var(--ball-11)';
+        if (num <= 30) return 'var(--ball-21)';
+        if (num <= 40) return 'var(--ball-31)';
+        return 'var(--ball-41)';
+    }
+
+    function displayNumbers(numbers) {
+        numbersDisplay.innerHTML = '';
+        numbers.forEach((num, index) => {
+            const ball = document.createElement('div');
+            ball.className = 'ball';
+            ball.textContent = num;
+            ball.style.backgroundColor = getBallColor(num);
+            ball.style.animationDelay = `${index * 0.1}s`;
+            numbersDisplay.appendChild(ball);
+        });
+    }
+
+    function addToHistory(numbers) {
+        const entry = {
+            numbers: numbers,
+            date: new Date().toLocaleString()
+        };
+        history.unshift(entry);
+        if (history.length > 10) history.pop();
+        localStorage.setItem('lottoHistory', JSON.stringify(history));
+        updateHistoryUI();
+    }
+
+    function updateHistoryUI() {
+        if (history.length === 0) {
+            historyList.innerHTML = '<p class="empty-msg">No history yet. Try generating some numbers!</p>';
+            return;
         }
+
+        historyList.innerHTML = history.map(item => `
+            <div class="history-item">
+                <div class="history-balls">
+                    ${item.numbers.map(n => `
+                        <div class="ball mini-ball" style="background-color: ${getBallColor(n)}">${n}</div>
+                    `).join('')}
+                </div>
+                <small style="color: var(--text-muted)">${item.date}</small>
+            </div>
+        `).join('');
     }
 });
