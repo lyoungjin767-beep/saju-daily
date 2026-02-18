@@ -40,7 +40,7 @@ body {
     background-color: var(--bg-app);
     color: var(--text-main);
     padding: 1rem;
-    transition: all 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .app-container { width: 100%; max-width: 900px; margin: 0 auto; }
@@ -96,22 +96,23 @@ body {
 /* Animal Test Styles */
 .upload-area { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
 #faceImage { width: 300px; height: 300px; object-fit: cover; border-radius: 20px; border: 4px solid var(--secondary-color); }
-#webcam-container canvas { border-radius: 20px; border: 4px solid var(--primary-color); }
-.button-group { display: flex; gap: 1rem; }
+#webcam-container canvas { border-radius: 20px; border: 4px solid var(--primary-color); width: 100% !important; height: auto !important; max-width: 300px; }
+.button-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
 /* Lotto Styles */
 .numbers-display { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .ball {
     width: 60px; height: 60px; border-radius: 50%; display: flex;
     justify-content: center; align-items: center; font-size: 1.25rem; font-weight: 700; color: white;
-    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.2); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.2); transition: transform 0.2s;
 }
 .ball.placeholder { background: var(--secondary-color); color: var(--text-muted); border: 2px dashed var(--border-color); box-shadow: none; }
 .history-panel { margin-top: 3rem; text-align: left; }
-.history-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-app); border-radius: 12px; margin-bottom: 0.5rem; }
-.mini-ball { width: 30px; height: 30px; font-size: 0.75rem; }
+.history-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-app); border-radius: 12px; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 1rem; }
+.mini-ball { width: 35px; height: 35px; font-size: 0.85rem; }
 
 @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+.animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
 /* Global components */
 .theme-toggle-container { position: fixed; top: 1rem; right: 1rem; z-index: 1000; }
@@ -119,6 +120,7 @@ body {
     background: var(--bg-card); border: 1px solid var(--border-color);
     padding: 0.6rem 1.2rem; border-radius: 30px; cursor: pointer;
     color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;
+    box-shadow: var(--shadow-sm);
 }
 
 .result-container { margin-top: 3rem; text-align: left; }
@@ -130,7 +132,9 @@ body {
 
 .btn { padding: 0.8rem 1.5rem; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
 .btn-primary { background: var(--primary-color); color: white; }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
 .btn-secondary { background: var(--bg-app); border: 1px solid var(--border-color); color: var(--text-main); }
+.btn-secondary:hover { background: var(--secondary-color); }
 
 .partnership-section, .comments-section { margin-top: 3rem; padding: 2.5rem; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-color); }
 input, textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-app); color: var(--text-main); }

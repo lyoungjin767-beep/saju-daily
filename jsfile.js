@@ -1,36 +1,80 @@
+// AI Model URL
+const MODEL_URL = "https://teachablemachine.withgoogle.com/models/MiRC8hPXg/";
+let model, webcam, maxPredictions;
+
+// --- Helper Functions ---
+function getBallColor(n) {
+    if (n <= 10) return 'var(--ball-1)';
+    if (n <= 20) return 'var(--ball-11)';
+    if (n <= 30) return 'var(--ball-21)';
+    if (n <= 40) return 'var(--ball-31)';
+    return 'var(--ball-41)';
+}
+
+async function initModel() {
+    if (model) return;
+    try {
+        model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
+        maxPredictions = model.getTotalClasses();
+    } catch (e) {
+        console.error("Model load failed", e);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Navigation Logic ---
+    // --- Navigation ---
     const navAnimal = document.getElementById('navAnimal');
     const navLotto = document.getElementById('navLotto');
     const animalSection = document.getElementById('animalSection');
     const lottoSection = document.getElementById('lottoSection');
 
-    navAnimal.addEventListener('click', () => {
-        navAnimal.classList.add('active');
-        navLotto.classList.remove('active');
-        animalSection.classList.add('active');
-        lottoSection.classList.remove('active');
-        stopWebcam();
-    });
-
-    navLotto.addEventListener('click', () => {
-        navLotto.classList.add('active');
-        navAnimal.classList.remove('active');
-        lottoSection.classList.add('active');
-        animalSection.classList.remove('active');
-        stopWebcam();
-    });
-
-    // --- AI Animal Test Logic ---
-    const URL = "https://teachablemachine.withgoogle.com/models/MiRC8hPXg/";
-    let model, webcam, maxPredictions;
-
-    async function initModel() {
-        if (model) return;
-        model = await tmImage.load(URL + "model.json", URL + "metadata.json");
-        maxPredictions = model.getTotalClasses();
+    function switchTab(tab) {
+        if (tab === 'animal') {
+            navAnimal.classList.add('active');
+            navLotto.classList.remove('active');
+            animalSection.classList.add('active');
+            lottoSection.classList.remove('active');
+            stopWebcam();
+        } else {
+            navLotto.classList.add('active');
+            navAnimal.classList.remove('active');
+            lottoSection.classList.add('active');
+            animalSection.classList.remove('active');
+            stopWebcam();
+        }
     }
 
+    navAnimal.addEventListener('click', () => switchTab('animal'));
+    navLotto.addEventListener('click', () => switchTab('lotto'));
+
+    // --- Theme Handling ---
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    function updateThemeUI(theme) {
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Light Mode';
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Dark Mode';
+        }
+    }
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    updateThemeUI(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        updateThemeUI(newTheme);
+    });
+
+    // --- Animal Test Logic ---
     const imageUpload = document.getElementById('imageUpload');
     const faceImage = document.getElementById('faceImage');
     const webcamBtn = document.getElementById('webcamBtn');
@@ -53,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await predict(faceImage);
                 loading.style.display = 'none';
                 resultContainer.style.display = 'block';
-            }, 200);
+            }, 300);
         };
         reader.readAsDataURL(file);
     });
@@ -68,14 +112,22 @@ document.addEventListener('DOMContentLoaded', () => {
         resultContainer.style.display = 'none';
         await initModel();
         
-        webcam = new tmImage.Webcam(300, 300, true);
-        await webcam.setup();
-        await webcam.play();
-        loading.style.display = 'none';
-        resultContainer.style.display = 'block';
-        webcamContainer.appendChild(webcam.canvas);
-        webcamBtn.textContent = "Stop Webcam";
-        window.requestAnimationFrame(webcamLoop);
+        try {
+            webcam = new tmImage.Webcam(300, 300, true);
+            await webcam.setup();
+            await webcam.play();
+            loading.style.display = 'none';
+            resultContainer.style.display = 'block';
+            webcamContainer.innerHTML = '';
+            webcamContainer.appendChild(webcam.canvas);
+            webcamBtn.textContent = "Stop Webcam";
+            webcamBtn.classList.replace('btn-secondary', 'btn-primary');
+            window.requestAnimationFrame(webcamLoop);
+        } catch (e) {
+            alert("Webcam access denied or error occurred.");
+            loading.style.display = 'none';
+            faceImage.style.display = 'block';
+        }
     });
 
     async function webcamLoop() {
@@ -91,16 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
             webcam = null;
             webcamContainer.innerHTML = '';
             webcamBtn.textContent = "Use Real-time Webcam";
+            webcamBtn.classList.replace('btn-primary', 'btn-secondary');
             faceImage.style.display = 'block';
         }
     }
 
     async function predict(element) {
+        if (!model) return;
         const prediction = await model.predict(element);
         let dogProb = 0, catProb = 0;
         prediction.forEach(p => {
-            if (p.className.toLowerCase().includes('dog')) dogProb = (p.probability * 100).toFixed(0);
-            else if (p.className.toLowerCase().includes('cat')) catProb = (p.probability * 100).toFixed(0);
+            const prob = (p.probability * 100).toFixed(0);
+            if (p.className.toLowerCase().includes('dog')) dogProb = prob;
+            else if (p.className.toLowerCase().includes('cat')) catProb = prob;
         });
 
         document.getElementById('dogBar').style.width = dogProb + '%';
@@ -109,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('catPercent').textContent = catProb + '%';
         
         const title = document.getElementById('resultTitle');
-        if (dogProb > catProb) title.textContent = "You look like a Friendly Dog! 🐶";
-        else if (catProb > dogProb) title.textContent = "You look like a Mysterious Cat! 🐱";
+        if (parseInt(dogProb) > parseInt(catProb)) title.textContent = "You look like a Friendly Dog! 🐶";
+        else if (parseInt(catProb) > parseInt(dogProb)) title.textContent = "You look like a Mysterious Cat! 🐱";
         else title.textContent = "You are a perfect mix! 🐾";
     }
 
@@ -134,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         numbersDisplay.innerHTML = '';
         nums.forEach((n, i) => {
             const b = document.createElement('div');
-            b.className = 'ball';
+            b.className = 'ball animate-pop';
             b.textContent = n;
             b.style.backgroundColor = getBallColor(n);
             b.style.animationDelay = `${i * 0.1}s`;
@@ -153,14 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHistoryUI();
     });
 
-    function getBallColor(n) {
-        if(n <= 10) return 'var(--ball-1)';
-        if(n <= 20) return 'var(--ball-11)';
-        if(n <= 30) return 'var(--ball-21)';
-        if(n <= 40) return 'var(--ball-31)';
-        return 'var(--ball-41)';
-    }
-
     function updateHistoryUI() {
         if(history.length === 0) {
             historyList.innerHTML = '<p class="empty-msg">No history yet.</p>';
@@ -168,45 +215,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         historyList.innerHTML = history.map(h => `
             <div class="history-item">
-                <div style="display:flex; gap:5px">
+                <div style="display:flex; gap:8px">
                     ${h.nums.map(n => `<div class="ball mini-ball" style="background:${getBallColor(n)}">${n}</div>`).join('')}
                 </div>
-                <small>${h.date}</small>
+                <small style="color: var(--text-muted)">${h.date}</small>
             </div>
         `).join('');
-    }
-
-    // --- Theme Handling ---
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    if (currentTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        updateThemeUI('dark');
-    }
-
-    themeToggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-            updateThemeUI('light');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            updateThemeUI('dark');
-        }
-    });
-
-    function updateThemeUI(theme) {
-        if (theme === 'dark') {
-            themeIcon.textContent = '☀️';
-            themeText.textContent = 'Light Mode';
-        } else {
-            themeIcon.textContent = '🌙';
-            themeText.textContent = 'Dark Mode';
-        }
     }
 });
