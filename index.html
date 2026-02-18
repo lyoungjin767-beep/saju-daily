@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사주이야기 - 신년운세 포털</title>
+    <title>사주이야기 - AI 운세 포털</title>
     <link rel="stylesheet" href="./index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,18 +12,15 @@
 <body>
     <header class="top-nav">
         <div class="nav-container">
-            <div class="logo" id="homeLogo" style="cursor: pointer;">사주이야기<span>AI 운세 서비스</span></div>
+            <div class="logo" id="homeLogo" style="cursor: pointer;">운신<span>운세의 신</span></div>
             <nav class="menu-desktop">
                 <a href="#" class="nav-home active">홈</a>
                 <a href="#" class="nav-newyear">신년운세</a>
                 <a href="#" class="nav-monthly">월간운세</a>
                 <a href="#" class="nav-crush">짝사랑</a>
                 <a href="#">궁합</a>
-                <a href="#">오늘의 운세</a>
-                <a href="#" class="highlight">1:1상담</a>
             </nav>
             <div class="nav-icons">
-                <button id="themeToggle" class="icon-btn">🌓</button>
                 <span class="search-icon">🔍</span>
                 <span class="hamburger">☰</span>
             </div>
@@ -34,17 +31,29 @@
         <!-- Home Main Section -->
         <section id="homeSection" class="home-main-layout">
             <div class="hero-slider">
-                <div class="slides-container" id="heroSlides">
-                    <div class="slide active" style="background-color: #e3f2fd;">
+                <div class="slides-container">
+                    <div class="slide active" style="background-color: #e0f7fa;">
                         <div class="slide-content">
-                            <div class="slide-text"><span class="badge-new">NEW</span><h2>신들린 결정타 15항목!</h2><h1>당신에 대한 <span>진짜 속마음</span></h1></div>
-                            <div class="slide-image"><img src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=600&q=80" alt="Love"></div>
+                            <div class="slide-text">
+                                <span class="badge-new">NEW</span>
+                                <h2>신들린 결정타 15항목!</h2>
+                                <h1>당신에 대한 <span>진짜 속마음</span></h1>
+                            </div>
+                            <div class="slide-image">
+                                <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=600&q=80" alt="Couple on a date">
+                            </div>
                         </div>
                     </div>
                     <div class="slide" style="background-color: #fce4ec;">
                         <div class="slide-content">
-                            <div class="slide-text"><span class="badge-new">2026</span><h2>전통 토정비결로 보는</h2><h1>나의 <span>일년 운세 흐름</span></h1></div>
-                            <div class="slide-image"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Destiny"></div>
+                             <div class="slide-text">
+                                <span class="badge-new">2026</span>
+                                <h2>전통 토정비결로 보는</h2>
+                                <h1>나의 <span>일년 운세 흐름</span></h1>
+                            </div>
+                            <div class="slide-image">
+                                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Destiny">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,144 +87,45 @@
             <div class="zodiac-section">
                 <h3 class="section-label">오늘의 띠별운세</h3>
                 <div class="zodiac-grid">
-                    <div class="zodiac-item">🐭<span>쥐</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐮<span>소</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐯<span>호랑이</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐰<span>토끼</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐲<span>용</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐍<span>뱀</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐴<span>말</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐑<span>양</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐵<span>원숭이</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐔<span>닭</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐶<span>개</span><button class="zodiac-view-btn">보기</button></div>
-                    <div class="zodiac-item">🐷<span>돼지</span><button class="zodiac-view-btn">보기</button></div>
+                    <div class="zodiac-item" data-emoji="🐭"><span>쥐띠</span><button class="zodiac-view-btn">더보기</button></div>
+                    <div class="zodiac-item" data-emoji="🐮"><span>소띠</span><button class="zodiac-view-btn">더보기</button></div>
+                    <div class="zodiac-item" data-emoji="🐯"><span>호랑이띠</span><button class="zodiac-view-btn">더보기</button></div>
+                    <div class="zodiac-item" data-emoji="🐰"><span>토끼띠</span><button class="zodiac-view-btn">더보기</button></div>
                 </div>
             </div>
-
+            
             <div class="popular-fortunes">
-                <h3 class="section-label">인기 운세</h3>
+                <h3 class="section-label">인기운세</h3>
                 <div class="popular-grid">
-                    <!-- Example Popular Cards -->
-                    <div class="popular-card saju-trigger" data-service="crush-kagami">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>1. 상대의 속마음과 하고싶은 것</p>
-                        <div class="popular-price">14,000<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-sinjo">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>2. 헤어져야 할까? 아니면 계속해야 할까?</p>
-                        <div class="popular-price">9,500<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-desire">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>3. 사실은 불륜을 그만두고 싶은 걸까?</p>
-                        <div class="popular-price">9,500<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-lenormand">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1515023115689-589c33041d3c?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>4. 마지막엔 날 선택할까? 행복하게 만들기</p>
-                        <div class="popular-price">15,000<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-pythagoras">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>5. 그 사람이 내 운명의 결혼 상대일까?</p>
-                        <div class="popular-price">14,000<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-stella">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1501139083538-0139583c060f?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>6. 달콤한 비밀~ 그 사람의 진짜 마음?</p>
-                        <div class="popular-price">3,500<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-money">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>7. 상대의 마음과 아직 보지 못한 모습</p>
-                        <div class="popular-price">9,500<span>원</span></div>
-                    </div>
-                    <div class="popular-card saju-trigger" data-service="crush-business">
-                        <div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=200&q=80');"></div>
-                        <p>8. 40대 이후의 결혼 운세! 만남이 길할까</p>
-                        <div class="popular-price">0<span>원</span></div>
-                    </div>
+                    <div class="popular-card saju-trigger" data-service="popular1"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=200&q=80');"></div><p>1. 상대의 속마음과 하고싶은 것</p></div>
+                    <div class="popular-card saju-trigger" data-service="popular2"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=200&q=80');"></div><p>2. 헤어져야 할까? 아니면 계속해야 할까?</p></div>
+                    <div class="popular-card saju-trigger" data-service="popular3"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=200&q=80');"></div><p>3. 사실은 불륜을 그만두고 싶은 걸까?</p></div>
+                    <div class="popular-card saju-trigger" data-service="popular4"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1515023115689-589c33041d3c?auto=format&fit=crop&w=200&q=80');"></div><p>4. 마지막엔 날 선택할까? 행복하게 만들기</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- Category Grid Sections -->
-        <section id="newyearSection" class="service-grid-container" style="display: none;">
-            <h2 class="main-title">2026 신년운세</h2>
-            <div class="service-grid">
-                <!-- Cards here ... -->
-            </div>
-        </section>
-
-        <!-- Monthly Fortune Grid Section -->
-        <section id="monthlySection" class="service-grid-container" style="display: none;">
-            <h2 class="main-title">월간운세</h2>
-            <div class="service-grid">
-                <!-- Cards here ... -->
-            </div>
-        </section>
-
-        <!-- Crush Fortune Grid Section -->
-        <section id="crushSection" class="service-grid-container" style="display: none;">
-            <h2 class="main-title">짝사랑</h2>
-            <div class="service-grid">
-                <!-- Cards here ... -->
-            </div>
-        </section>
-
-        <!-- Analysis Form & Result -->
-        <main id="analysisSection" class="saju-layout" style="display: none;">
-            <section class="info-section">
-                <div class="service-image"><div class="image-placeholder"><span class="free-badge">무료</span></div></div>
-                <h2 class="service-title">평생사주</h2>
-                <div class="service-intro"><h3>운세 소개</h3><p>AI 심층 분석으로 당신의 운명을 자세히 알려드립니다.</p></div>
-                <button class="btn-back" id="btnBack">← 뒤로가기</button>
-            </section>
-            <section class="form-section">
-                <h2 class="form-title">본인</h2>
-                <form id="sajuForm">
-                    <div class="input-group"><input type="text" id="userName" placeholder="이름을 입력하세요" required></div>
-                    <div class="input-group"><select id="gender" required><option value="male">남자</option><option value="female">여자</option></select></div>
-                    <div class="date-row"><select id="birthYear" required></select><select id="birthMonth" required></select><select id="birthDay" required></select></div>
-                    <div class="input-group"><select id="birthHour" required><option value="unknown">모름</option></select></div>
-                    <div class="input-group"><select id="calendarType"><option value="solar">양력</option><option value="lunar">음력</option></select></div>
-                    <button type="submit" class="btn-submit">결과보기</button>
-                </form>
-                <div id="loading" class="loading-overlay" style="display: none;"><div class="spinner"></div><p>분석 중...</p></div>
-            </section>
-        </main>
+        <!-- Other sections will be dynamically displayed via JS -->
+        <section id="categorySection" class="service-grid-container" style="display: none;"></section>
+        <main id="analysisSection" class="saju-layout" style="display: none;"></main>
         <section id="resultArea" class="result-display" style="display: none;"></section>
+        <section id="legalSection" class="legal-display" style="display: none;"></section>
+    </div>
 
-        <!-- Legal Content Section -->
-        <section id="legalSection" class="legal-display" style="display: none;">
-            <button class="btn-back-legal">← 돌아가기</button>
-            <div id="legalContent"></div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="app-footer">
+    <footer class="app-footer">
+        <div class="footer-container">
             <div class="footer-info">
                 <div class="info-row">
-                    <span>업체명 : (주)사주이야기</span>
-                    <span class="divider">|</span>
-                    <span>서비스URL : https://lyoungjin767-beep.github.io/saju-daily/</span>
-                    <span class="divider">|</span>
-                    <span>대표이사 : 홍길동</span>
-                    <span class="divider">|</span>
+                    <span>업체명 : (주)스포츠조선</span> <span class="divider">|</span>
+                    <span>서비스URL : https://www.unsin.co.kr/</span> <span class="divider">|</span>
+                    <span>대표이사 : 한규선</span> <span class="divider">|</span>
                     <span>주소 : 서울특별시 양천구 목동동로 233-1 우편번호 : 07995</span>
                 </div>
                 <div class="info-row">
-                    <span>결제문의 : 070-4027-7072</span>
-                    <span class="divider">|</span>
-                    <span>대표전화 : 02-3219-8253</span>
-                    <span class="divider">|</span>
-                    <span>담당자 이메일 : your@email.com</span>
-                    <span class="divider">|</span>
+                    <span>결제문의 : 070-4027-7072</span> <span class="divider">|</span>
+                    <span>대표전화 : 02-3219-8253</span> <span class="divider">|</span>
+                    <span>담당자 이메일 : zilver@sportschosun.com</span> <span class="divider">|</span>
                     <span>사업자번호 : 104-81-24701</span>
-                    <span class="divider">|</span>
-                    <span>출원번호 : 41-2015-0010724</span>
                 </div>
                 <div class="info-row">
                     <span>통신판매번호 : 2014-서울양천-0296</span>
@@ -224,12 +134,9 @@
             <div class="footer-links">
                 <a href="#" class="legal-link" data-type="privacy">개인정보처리방침</a>
                 <a href="#" class="legal-link" data-type="terms">이용약관</a>
-                <a href="#" class="legal-link" data-type="refund">환불 규정</a>
-                <a href="#" class="legal-link" data-type="disclaimer">면책 문구</a>
             </div>
-            <p class="copyright">Copyright (c) SAJU-STORY.COM All rights reserved.</p>
-        </footer>
-    </div>
-    <script src="./jsfile.js"></script>
+            <p class="copyright">Copyright (c) SPORTSCHOSUN.COM All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

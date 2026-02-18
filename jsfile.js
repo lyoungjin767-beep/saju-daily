@@ -1,29 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Navigation Logic ---
-    const homeSection = document.getElementById('homeSection');
-    const newyearSection = document.getElementById('newyearSection');
-    const monthlySection = document.getElementById('monthlySection');
-    const crushSection = document.getElementById('crushSection');
-    const analysisSection = document.getElementById('analysisSection');
-
-    function hideAll() {
-        if(homeSection) homeSection.style.display = 'none';
-        if(newyearSection) newyearSection.style.display = 'none';
-        if(monthlySection) monthlySection.style.display = 'none';
-        if(crushSection) crushSection.style.display = 'none';
-        if(analysisSection) analysisSection.style.display = 'none';
-        document.querySelectorAll('.menu-desktop a').forEach(a => a.classList.remove('active'));
+    // --- Hero Slider ---
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    if (slides.length > 1) {
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000);
     }
 
-    function showHome() { hideAll(); homeSection.style.display = 'block'; document.querySelector('.nav-home').classList.add('active'); }
-    function showNewYear() { hideAll(); newyearSection.style.display = 'block'; document.querySelector('.nav-newyear').classList.add('active'); }
-    // ... other show functions
+    // --- Navigation (Placeholder) ---
+    // In a real app, this would hide/show sections.
+    document.querySelectorAll('.nav-home, .nav-newyear, .nav-monthly, .nav-crush').forEach(nav => {
+        nav.addEventListener('click', e => {
+            e.preventDefault();
+            alert(`'${e.target.textContent}' 메뉴를 클릭했습니다.`);
+        });
+    });
 
-    // Listeners
-    document.getElementById('homeLogo').addEventListener('click', showHome);
-    document.querySelector('.nav-home').addEventListener('click', showHome);
-    document.querySelector('.nav-newyear').addEventListener('click', showNewYear);
-    // ... other listeners
-
-    // --- Hero Banner is static now, so slider logic is removed ---
+    document.querySelectorAll('.saju-trigger').forEach(card => {
+        card.addEventListener('click', e => {
+            alert(`'${e.currentTarget.querySelector('p').textContent}' 운세를 선택했습니다.`);
+        });
+    });
 });
