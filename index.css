@@ -314,3 +314,215 @@ nav ul li a.active::after {
     .ad-banner-container { flex-direction: column; text-align: center; }
     .ad-text { margin: 20px 0; }
 }
+
+/* =========================================
+   New Sections: Half Price, Zodiac, Popular
+   ========================================= */
+
+/* Common Section Styles */
+.section-header {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    border-left: 4px solid #333; /* Optional visual accent */
+    padding-left: 10px;
+}
+
+/* Half Price Section */
+.half-price-section {
+    padding: 40px 0;
+    background-color: #fff;
+}
+
+.half-price-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.half-price-item {
+    flex: 1;
+    cursor: pointer;
+}
+
+.half-price-item .image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.half-price-img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.half-price-item:hover .half-price-img {
+    transform: scale(1.05);
+}
+
+.half-price-item .item-info {
+    text-align: center;
+}
+
+.half-price-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.price-box {
+    font-size: 14px;
+    color: #666;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #aaa;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.discount-price {
+    color: #e53935; /* Red for discount */
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.discount-price .currency {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Zodiac Section */
+.zodiac-section {
+    padding: 40px 0;
+    background-color: #f9f9f9; /* Light grey background */
+}
+
+.zodiac-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.zodiac-item {
+    flex: 1;
+    background-color: transparent;
+    text-align: center;
+    padding: 20px 10px;
+    border-radius: 8px;
+    /* border: 1px solid #eee; */ /* Optional border */
+}
+
+.zodiac-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zodiac-icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.zodiac-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.zodiac-item p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    height: 40px; /* Limit height for uniform look */
+    overflow: hidden;
+}
+
+.more-link {
+    font-size: 12px;
+    color: #999;
+    text-decoration: underline;
+}
+
+/* Popular Horoscope Section */
+.popular-section {
+    padding: 40px 0 60px; /* More padding at bottom */
+    background-color: #fff;
+}
+
+.popular-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.popular-item {
+    cursor: pointer;
+}
+
+.popular-img-wrapper {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.popular-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.popular-item:hover .popular-img-wrapper img {
+    transform: scale(1.05);
+}
+
+.popular-info p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.popular-info .rank {
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+/* Responsive for New Sections */
+@media (max-width: 768px) {
+    .half-price-container { flex-direction: column; }
+    .zodiac-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .popular-container { grid-template-columns: 1fr 1fr; }
+}
