@@ -3,140 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사주이야기 - AI 운세 포털</title>
-    <link rel="stylesheet" href="./index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>운세의 신</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="httpss://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header class="top-nav">
-        <div class="nav-container">
-            <div class="logo" id="homeLogo" style="cursor: pointer;">운신<span>운세의 신</span></div>
-            <nav class="menu-desktop">
-                <a href="#" class="nav-home active">홈</a>
-                <a href="#" class="nav-newyear">신년운세</a>
-                <a href="#" class="nav-monthly">월간운세</a>
-                <a href="#" class="nav-crush">짝사랑</a>
-                <a href="#">궁합</a>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://i.imgur.com/bYx1b5C.png" alt="운신 로고" class="logo-img">
+                <div class="logo-text">
+                    <h1>운신</h1>
+                    <p>운세의신</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">홈</a></li>
+                    <li><a href="#">신년운세</a></li>
+                    <li><a href="#">월간운세</a></li>
+                    <li><a href="#">만남</a></li>
+                    <li><a href="#">짝사랑 <span class="new-icon">N</span></a></li>
+                    <li><a href="#">궁합</a></li>
+                    <li><a href="#">연애고민</a></li>
+                    <li><a href="#">오늘의 운세</a></li>
+                    <li><a href="#">1:1상담</a></li>
+                </ul>
             </nav>
-            <div class="nav-icons">
-                <span class="search-icon">🔍</span>
-                <span class="hamburger">☰</span>
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </header>
 
-    <div class="app-container">
-        <!-- Home Main Section -->
-        <section id="homeSection" class="home-main-layout">
-            <div class="hero-slider">
-                <div class="slides-container">
-                    <div class="slide active" style="background-color: #e0f7fa;">
-                        <div class="slide-content">
-                            <div class="slide-text">
-                                <span class="badge-new">NEW</span>
-                                <h2>신들린 결정타 15항목!</h2>
-                                <h1>당신에 대한 <span>진짜 속마음</span></h1>
-                            </div>
-                            <div class="slide-image">
-                                <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=600&q=80" alt="Couple on a date">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide" style="background-color: #fce4ec;">
-                        <div class="slide-content">
-                             <div class="slide-text">
-                                <span class="badge-new">2026</span>
-                                <h2>전통 토정비결로 보는</h2>
-                                <h1>나의 <span>일년 운세 흐름</span></h1>
-                            </div>
-                            <div class="slide-image">
-                                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Destiny">
-                            </div>
-                        </div>
-                    </div>
+    <main>
+        <section class="hero">
+            <div class="hero-image">
+                <div class="hero-text-bubble">
+                    <span class="new-badge">NEW</span>
+                    <p class="bubble-title">우주의 법칙이 이끄는</p>
+                    <p class="bubble-main">영혼의 도달점</p>
                 </div>
-            </div>
-
-            <div class="icon-menu">
-                <div class="icon-item nav-home"><div class="icon-circle">🎁</div><span>무료운세</span></div>
-                <div class="icon-item nav-newyear"><div class="icon-circle">🧧</div><span>신년운세</span></div>
-                <div class="icon-item nav-crush"><div class="icon-circle">💘</div><span>짝사랑 해결</span></div>
-                <div class="icon-item nav-monthly"><div class="icon-circle">📅</div><span>월간/만남</span></div>
-                <div class="icon-item"><div class="icon-circle">🔔</div><span>공지사항</span></div>
-                <div class="icon-item"><div class="icon-circle">🔍</div><span>운세 다시보기</span></div>
-            </div>
-
-            <div class="special-offers">
-                <h3 class="section-label">오늘만 반값</h3>
-                <div class="offer-grid">
-                    <div class="offer-card saju-trigger" data-service="premium">
-                        <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1531297484-accd12092f3b?auto=format&fit=crop&w=400&q=80');"></div>
-                        <p>그 사람의 관능적인 본심과 숨기는 마음</p>
-                        <div class="offer-price"><del>11,500원</del> <span>5,750원</span></div>
-                    </div>
-                    <div class="offer-card saju-trigger" data-service="future3">
-                        <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273832c3f6?auto=format&fit=crop&w=400&q=80');"></div>
-                        <p>당신과 최후에 맺어질 이성의 모든 것</p>
-                        <div class="offer-price"><del>3,500원</del> <span>1,750원</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="zodiac-section">
-                <h3 class="section-label">오늘의 띠별운세</h3>
-                <div class="zodiac-grid">
-                    <div class="zodiac-item" data-emoji="🐭"><span>쥐띠</span><button class="zodiac-view-btn">더보기</button></div>
-                    <div class="zodiac-item" data-emoji="🐮"><span>소띠</span><button class="zodiac-view-btn">더보기</button></div>
-                    <div class="zodiac-item" data-emoji="🐯"><span>호랑이띠</span><button class="zodiac-view-btn">더보기</button></div>
-                    <div class="zodiac-item" data-emoji="🐰"><span>토끼띠</span><button class="zodiac-view-btn">더보기</button></div>
-                </div>
-            </div>
-            
-            <div class="popular-fortunes">
-                <h3 class="section-label">인기운세</h3>
-                <div class="popular-grid">
-                    <div class="popular-card saju-trigger" data-service="popular1"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=200&q=80');"></div><p>1. 상대의 속마음과 하고싶은 것</p></div>
-                    <div class="popular-card saju-trigger" data-service="popular2"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=200&q=80');"></div><p>2. 헤어져야 할까? 아니면 계속해야 할까?</p></div>
-                    <div class="popular-card saju-trigger" data-service="popular3"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=200&q=80');"></div><p>3. 사실은 불륜을 그만두고 싶은 걸까?</p></div>
-                    <div class="popular-card saju-trigger" data-service="popular4"><div class="popular-img" style="background-image: url('https://images.unsplash.com/photo-1515023115689-589c33041d3c?auto=format&fit=crop&w=200&q=80');"></div><p>4. 마지막엔 날 선택할까? 행복하게 만들기</p></div>
-                </div>
+                <button class="arrow-btn">&gt;</button>
             </div>
         </section>
 
-        <!-- Other sections will be dynamically displayed via JS -->
-        <section id="categorySection" class="service-grid-container" style="display: none;"></section>
-        <main id="analysisSection" class="saju-layout" style="display: none;"></main>
-        <section id="resultArea" class="result-display" style="display: none;"></section>
-        <section id="legalSection" class="legal-display" style="display: none;"></section>
-    </div>
-
-    <footer class="app-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <div class="info-row">
-                    <span>업체명 : (주)스포츠조선</span> <span class="divider">|</span>
-                    <span>서비스URL : https://www.unsin.co.kr/</span> <span class="divider">|</span>
-                    <span>대표이사 : 한규선</span> <span class="divider">|</span>
-                    <span>주소 : 서울특별시 양천구 목동동로 233-1 우편번호 : 07995</span>
-                </div>
-                <div class="info-row">
-                    <span>결제문의 : 070-4027-7072</span> <span class="divider">|</span>
-                    <span>대표전화 : 02-3219-8253</span> <span class="divider">|</span>
-                    <span>담당자 이메일 : zilver@sportschosun.com</span> <span class="divider">|</span>
-                    <span>사업자번호 : 104-81-24701</span>
-                </div>
-                <div class="info-row">
-                    <span>통신판매번호 : 2014-서울양천-0296</span>
-                </div>
+        <section class="quick-menu">
+            <div class="menu-item">
+                <div class="icon-box"><img src="https://i.imgur.com/dJt2z2c.png" alt="무료운세"></div>
+                <p>무료운세</p>
             </div>
-            <div class="footer-links">
-                <a href="#" class="legal-link" data-type="privacy">개인정보처리방침</a>
-                <a href="#" class="legal-link" data-type="terms">이용약관</a>
+            <div class="menu-item">
+                <div class="icon-box"><img src="https://i.imgur.com/5Jw8p9E.png" alt="신년운세"></div>
+                <p>신년운세</p>
             </div>
-            <p class="copyright">Copyright (c) SPORTSCHOSUN.COM All rights reserved.</p>
-        </div>
-    </footer>
+            <div class="menu-item">
+                 <div class="icon-box"><img src="https://i.imgur.com/aJ3d2p0.png" alt="짝사랑 해결"></div>
+                <p>짝사랑 해결</p>
+            </div>
+            <div class="menu-item">
+                <div class="icon-box"><img src="https://i.imgur.com/sN7OIRi.png" alt="반년내 만남"></div>
+                <p>반년내 만남</p>
+            </div>
+            <div class="menu-item">
+                <div class="icon-box"><img src="https://i.imgur.com/sL2gCo3.png" alt="공지사항"></div>
+                <p>공지사항</p>
+            </div>
+            <div class="menu-item">
+                <div class="icon-box"><img src="https://i.imgur.com/GzJ6iP0.png" alt="유료운세다시보기"></div>
+                <p>유료운세다시보기</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
