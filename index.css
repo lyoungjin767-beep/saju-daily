@@ -11,12 +11,28 @@
 }
 
 [data-theme="dark"] {
-    --bg-body: #121212;
+    --bg-body: #0a0a1a;
     --bg-white: #1e1e1e;
     --text-dark: #e0e0e0;
     --text-gray: #b0b0b0;
     --border-color: #333333;
     --tag-bg: #443c1a;
+}
+
+[data-theme="dark"] body {
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 50px 160px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 80px 120px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 110px 210px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 150px 40px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 190px 150px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 240px 80px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 290px 200px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 350px 100px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 400px 400px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
