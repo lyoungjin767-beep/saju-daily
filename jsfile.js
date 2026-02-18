@@ -1,51 +1,8 @@
-// AI Model URL
-const MODEL_URL = "https://teachablemachine.withgoogle.com/models/MiRC8hPXg/";
-let model, webcam, maxPredictions;
-
-// --- Helper Functions ---
-function getBallColor(n) {
-    if (n <= 10) return 'var(--ball-1)';
-    if (n <= 20) return 'var(--ball-11)';
-    if (n <= 30) return 'var(--ball-21)';
-    if (n <= 40) return 'var(--ball-31)';
-    return 'var(--ball-41)';
-}
-
-async function initModel() {
-    if (model) return;
-    try {
-        model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
-        maxPredictions = model.getTotalClasses();
-    } catch (e) {
-        console.error("Model load failed", e);
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Navigation ---
-    const navAnimal = document.getElementById('navAnimal');
-    const navLotto = document.getElementById('navLotto');
-    const animalSection = document.getElementById('animalSection');
-    const lottoSection = document.getElementById('lottoSection');
-
-    function switchTab(tab) {
-        if (tab === 'animal') {
-            navAnimal.classList.add('active');
-            navLotto.classList.remove('active');
-            animalSection.classList.add('active');
-            lottoSection.classList.remove('active');
-            stopWebcam();
-        } else {
-            navLotto.classList.add('active');
-            navAnimal.classList.remove('active');
-            lottoSection.classList.add('active');
-            animalSection.classList.remove('active');
-            stopWebcam();
-        }
-    }
-
-    navAnimal.addEventListener('click', () => switchTab('animal'));
-    navLotto.addEventListener('click', () => switchTab('lotto'));
+    const sajuForm = document.getElementById('sajuForm');
+    const loading = document.getElementById('loading');
+    const resultArea = document.getElementById('resultArea');
+    const resultText = document.getElementById('resultText');
 
     // --- Theme Handling ---
     const themeToggle = document.getElementById('themeToggle');
@@ -74,152 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeUI(newTheme);
     });
 
-    // --- Animal Test Logic ---
-    const imageUpload = document.getElementById('imageUpload');
-    const faceImage = document.getElementById('faceImage');
-    const webcamBtn = document.getElementById('webcamBtn');
-    const webcamContainer = document.getElementById('webcam-container');
-    const resultContainer = document.getElementById('resultContainer');
-    const loading = document.getElementById('loading');
+    // --- Saju Form Handling ---
+    sajuForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const birthDate = document.getElementById('birthDate').value;
+        const calendarType = document.getElementById('calendarType').value;
+        const birthHour = document.getElementById('birthHour').value;
+        const birthMinute = document.getElementById('birthMinute').value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
 
-    imageUpload.addEventListener('change', async (e) => {
-        stopWebcam();
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-            faceImage.src = event.target.result;
-            faceImage.style.display = 'block';
-            loading.style.display = 'block';
-            resultContainer.style.display = 'none';
-            await initModel();
-            setTimeout(async () => {
-                await predict(faceImage);
-                loading.style.display = 'none';
-                resultContainer.style.display = 'block';
-            }, 300);
-        };
-        reader.readAsDataURL(file);
-    });
-
-    webcamBtn.addEventListener('click', async () => {
-        if (webcam) {
-            stopWebcam();
-            return;
-        }
+        // Hide old results
+        resultArea.style.display = 'none';
         loading.style.display = 'block';
-        faceImage.style.display = 'none';
-        resultContainer.style.display = 'none';
-        await initModel();
-        
-        try {
-            webcam = new tmImage.Webcam(300, 300, true);
-            await webcam.setup();
-            await webcam.play();
+
+        // Simulate analysis
+        setTimeout(() => {
             loading.style.display = 'none';
-            resultContainer.style.display = 'block';
-            webcamContainer.innerHTML = '';
-            webcamContainer.appendChild(webcam.canvas);
-            webcamBtn.textContent = "웹캠 중단";
-            webcamBtn.classList.replace('btn-secondary', 'btn-primary');
-            window.requestAnimationFrame(webcamLoop);
-        } catch (e) {
-            alert("웹캠 접근 권한이 없거나 오류가 발생했습니다.");
-            loading.style.display = 'none';
-            faceImage.style.display = 'block';
-        }
+            resultArea.style.display = 'block';
+            
+            const calendarLabel = calendarType === 'solar' ? '양력' : '음력';
+            const genderLabel = gender === 'male' ? '남성' : '여성';
+            
+            resultText.innerHTML = `
+                <strong>분석 대상:</strong> ${birthDate} (${calendarLabel}) ${birthHour}시 ${birthMinute}분 생, ${genderLabel}<br><br>
+                당신의 사주는 <strong>금(金)</strong>의 기운이 강하며, 올해는 <strong>목(木)</strong>의 기운이 들어와 재물운이 상승하는 시기입니다. 
+                주변 사람들과의 협력을 통해 더 큰 성취를 이룰 수 있는 한 해가 될 것입니다. 
+                특히 태어난 시간에 비추어 볼 때 오후 시간대에 중요한 결정을 내리는 것이 길합니다.
+            `;
+        }, 1500);
     });
-
-    async function webcamLoop() {
-        if (!webcam) return;
-        webcam.update();
-        await predict(webcam.canvas);
-        window.requestAnimationFrame(webcamLoop);
-    }
-
-    function stopWebcam() {
-        if (webcam) {
-            webcam.stop();
-            webcam = null;
-            webcamContainer.innerHTML = '';
-            webcamBtn.textContent = "실시간 웹캠 사용";
-            webcamBtn.classList.replace('btn-primary', 'btn-secondary');
-            faceImage.style.display = 'block';
-        }
-    }
-
-    async function predict(element) {
-        if (!model) return;
-        const prediction = await model.predict(element);
-        let dogProb = 0, catProb = 0;
-        prediction.forEach(p => {
-            const prob = (p.probability * 100).toFixed(0);
-            if (p.className.toLowerCase().includes('dog')) dogProb = prob;
-            else if (p.className.toLowerCase().includes('cat')) catProb = prob;
-        });
-
-        document.getElementById('dogBar').style.width = dogProb + '%';
-        document.getElementById('dogPercent').textContent = dogProb + '%';
-        document.getElementById('catBar').style.width = catProb + '%';
-        document.getElementById('catPercent').textContent = catProb + '%';
-        
-        const title = document.getElementById('resultTitle');
-        if (parseInt(dogProb) > parseInt(catProb)) title.textContent = "당신은 다정한 강아지상입니다! 🐶";
-        else if (parseInt(catProb) > parseInt(dogProb)) title.textContent = "당신은 신비로운 고양이상입니다! 🐱";
-        else title.textContent = "당신은 강아지와 고양이가 섞인 매력적인 관상입니다! 🐾";
-    }
-
-    // --- Lotto Generator Logic ---
-    const generateBtn = document.getElementById('generateBtn');
-    const resetHistoryBtn = document.getElementById('resetHistoryBtn');
-    const numbersDisplay = document.getElementById('numbersDisplay');
-    const historyList = document.getElementById('historyList');
-
-    let history = JSON.parse(localStorage.getItem('lottoHistory') || '[]');
-    updateHistoryUI();
-
-    generateBtn.addEventListener('click', () => {
-        const nums = [];
-        while(nums.length < 6) {
-            const r = Math.floor(Math.random() * 45) + 1;
-            if(!nums.includes(r)) nums.push(r);
-        }
-        nums.sort((a,b) => a-b);
-        
-        numbersDisplay.innerHTML = '';
-        nums.forEach((n, i) => {
-            const b = document.createElement('div');
-            b.className = 'ball animate-pop';
-            b.textContent = n;
-            b.style.backgroundColor = getBallColor(n);
-            b.style.animationDelay = `${i * 0.1}s`;
-            numbersDisplay.appendChild(b);
-        });
-
-        history.unshift({nums, date: new Date().toLocaleString()});
-        if(history.length > 10) history.pop();
-        localStorage.setItem('lottoHistory', JSON.stringify(history));
-        updateHistoryUI();
-    });
-
-    resetHistoryBtn.addEventListener('click', () => {
-        history = [];
-        localStorage.removeItem('lottoHistory');
-        updateHistoryUI();
-    });
-
-    function updateHistoryUI() {
-        if(history.length === 0) {
-            historyList.innerHTML = '<p class="empty-msg">아직 기록이 없습니다.</p>';
-            return;
-        }
-        historyList.innerHTML = history.map(h => `
-            <div class="history-item">
-                <div style="display:flex; gap:8px">
-                    ${h.nums.map(n => `<div class="ball mini-ball" style="background:${getBallColor(n)}">${n}</div>`).join('')}
-                </div>
-                <small style="color: var(--text-muted)">${h.date}</small>
-            </div>
-        `).join('');
-    }
 });
