@@ -85,7 +85,7 @@ input:focus, select:focus, textarea:focus {
     box-shadow: var(--shadow-sm);
 }
 
-.partnership-section, .comments-section { margin-top: 3rem; padding: 2.5rem; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-color); }
+.comments-section { margin-top: 3rem; padding: 2.5rem; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-color); }
 
 @media (max-width: 600px) {
     .form-row { grid-template-columns: 1fr; gap: 0; }
