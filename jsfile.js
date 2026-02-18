@@ -1,161 +1,112 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const homeSection = document.getElementById('homeSection');
-    const newyearSection = document.getElementById('newyearSection');
-    const monthlySection = document.getElementById('monthlySection');
-    const crushSection = document.getElementById('crushSection');
-    const analysisSection = document.getElementById('analysisSection');
-    const resultArea = document.getElementById('resultArea');
-    const sajuTriggers = document.querySelectorAll('.saju-trigger');
-    const btnBack = document.getElementById('btnBack');
-    const homeLogo = document.getElementById('homeLogo');
-    const serviceTitleDisplay = document.querySelector('.service-title');
+    const sections = {
+        home: document.getElementById('homeSection'),
+        newyear: document.getElementById('newyearSection'),
+        monthly: document.getElementById('monthlySection'),
+        crush: document.getElementById('crushSection'),
+        analysis: document.getElementById('analysisSection'),
+        result: document.getElementById('resultArea'),
+        legal: document.getElementById('legalSection')
+    };
 
-    const navHome = document.querySelector('.nav-home');
-    const navNewYear = document.querySelector('.nav-newyear');
-    const navMonthly = document.querySelector('.nav-monthly');
-    const navCrush = document.querySelector('.nav-crush');
-
+    const legalContent = document.getElementById('legalContent');
     let currentSelectedService = '';
 
-    // --- Hero Slider Logic ---
+    // --- Hero Slider ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-
-    function nextSlide() {
+    if(slides.length) setInterval(() => {
         slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % totalSlides;
+        currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add('active');
-    }
-
-    setInterval(nextSlide, 4000); // Change image every 4 seconds
+    }, 4000);
 
     // --- Navigation Logic ---
     function hideAll() {
-        homeSection.style.display = 'none';
-        newyearSection.style.display = 'none';
-        monthlySection.style.display = 'none';
-        crushSection.style.display = 'none';
-        analysisSection.style.display = 'none';
-        resultArea.style.display = 'none';
-        [navHome, navNewYear, navMonthly, navCrush].forEach(el => el ? el.classList.remove('active') : null);
+        Object.values(sections).forEach(s => { if(s) s.style.display = 'none'; });
+        document.querySelectorAll('.menu-desktop a').forEach(a => a.classList.remove('active'));
     }
 
-    function showHome() {
+    function showHome() { hideAll(); sections.home.style.display = 'block'; document.querySelector('.nav-home').classList.add('active'); window.scrollTo(0,0); }
+    function showNewYear() { hideAll(); sections.newyear.style.display = 'block'; document.querySelector('.nav-newyear').classList.add('active'); window.scrollTo(0,0); }
+    function showMonthly() { hideAll(); sections.monthly.style.display = 'block'; document.querySelector('.nav-monthly').classList.add('active'); window.scrollTo(0,0); }
+    function showCrush() { hideAll(); sections.crush.style.display = 'block'; document.querySelector('.nav-crush').classList.add('active'); window.scrollTo(0,0); }
+
+    function showLegal(type) {
         hideAll();
-        homeSection.style.display = 'block';
-        navHome.classList.add('active');
-        window.scrollTo(0, 0);
+        sections.legal.style.display = 'block';
+        let html = '';
+        switch(type) {
+            case 'privacy':
+                html = `<h1>개인정보처리방침</h1><p>본 사이트는 서비스 제공을 위해 최소한의 개인정보를 수집합니다.\n\n■ 수집 항목\n- 생년월일\n- 성별\n- 이메일(선택)\n\n■ 이용 목적\n- 사주 분석 서비스 제공\n- 고객 문의 대응\n\n■ 보관 기간\n수집된 정보는 서비스 제공 목적 달성 후 즉시 파기됩니다.\n\n■ 제3자 제공\n본 사이트는 이용자의 개인정보를 외부에 제공하지 않습니다.\n\n■ 문의\n문의: your@email.com</p>`;
+                break;
+            case 'terms':
+                html = `<h1>이용약관</h1><p>본 서비스는 참고용 사주 분석 콘텐츠를 제공합니다.\n\n이용자는 본 서비스를 개인적 참고 목적으로만 사용할 수 있으며,\n서비스 결과에 대한 최종 판단과 책임은 이용자 본인에게 있습니다.\n\n서비스는 예고 없이 변경되거나 중단될 수 있습니다.</p>`;
+                break;
+            case 'refund':
+                html = `<h1>환불 규정</h1><p>디지털 콘텐츠 특성상 분석 결과 제공 이후에는 환불이 어렵습니다.\n\n다만 시스템 오류 등 서비스 제공이 정상적으로 이루어지지 않은 경우,\n결제 후 24시간 이내 문의 시 환불이 가능합니다.\n\n문의: your@email.com</p>`;
+                break;
+            case 'disclaimer':
+                html = `<h1>면책문구</h1><p>본 사이트에서 제공하는 모든 사주 분석 콘텐츠는 참고용입니다.\n\n의학적, 법적, 재정적 조언을 대체하지 않으며,\n서비스 결과에 따른 모든 선택과 책임은 이용자 본인에게 있습니다.\n\n본 서비스는 미래를 보장하지 않습니다.</p>`;
+                break;
+        }
+        legalContent.innerHTML = html;
+        window.scrollTo(0,0);
     }
 
-    function showNewYear() {
-        hideAll();
-        newyearSection.style.display = 'block';
-        navNewYear.classList.add('active');
-        window.scrollTo(0, 0);
-    }
+    // --- Listeners ---
+    document.getElementById('homeLogo').addEventListener('click', showHome);
+    document.querySelector('.nav-home').addEventListener('click', showHome);
+    document.querySelector('.nav-newyear').addEventListener('click', showNewYear);
+    document.querySelector('.nav-monthly').addEventListener('click', showMonthly);
+    document.querySelector('.nav-crush').addEventListener('click', showCrush);
 
-    function showMonthly() {
-        hideAll();
-        monthlySection.style.display = 'block';
-        navMonthly.classList.add('active');
-        window.scrollTo(0, 0);
-    }
-
-    function showCrush() {
-        hideAll();
-        crushSection.style.display = 'block';
-        navCrush.classList.add('active');
-        window.scrollTo(0, 0);
-    }
-
-    function showAnalysis(e) {
-        const card = e.currentTarget;
-        currentSelectedService = card.getAttribute('data-service');
-        const categoryName = card.querySelector('.card-category') ? card.querySelector('.card-category').textContent : '운세분석';
-        
-        serviceTitleDisplay.textContent = categoryName.replace(/[\[\]]/g, '');
-        
-        hideAll();
-        analysisSection.style.display = 'grid';
-        window.scrollTo(0, 0);
-    }
-
-    function refreshTriggers() {
-        document.querySelectorAll('.saju-trigger').forEach(card => {
-            card.removeEventListener('click', showAnalysis);
-            card.addEventListener('click', showAnalysis);
-        });
-    }
-    refreshTriggers();
-
-    btnBack.addEventListener('click', () => {
-        if (currentSelectedService.startsWith('monthly-')) showMonthly();
-        else if (currentSelectedService.startsWith('crush-')) showCrush();
-        else if (newyearSection.style.display === 'block' || currentSelectedService.includes('2026')) showNewYear();
-        else showHome();
+    document.querySelectorAll('.legal-link').forEach(link => {
+        link.addEventListener('click', (e) => { e.preventDefault(); showLegal(link.dataset.type); });
     });
-    
-    homeLogo.addEventListener('click', showHome);
-    navHome.addEventListener('click', showHome);
-    navNewYear.addEventListener('click', showNewYear);
-    navMonthly.addEventListener('click', showMonthly);
-    navCrush.addEventListener('click', showCrush);
+    document.querySelector('.btn-back-legal').addEventListener('click', showHome);
 
-    // Icon menu listeners
-    document.querySelectorAll('.icon-item.nav-newyear').forEach(el => el.addEventListener('click', showNewYear));
-    document.querySelectorAll('.icon-item.nav-crush').forEach(el => el.addEventListener('click', showCrush));
-    document.querySelectorAll('.icon-item.nav-monthly').forEach(el => el.addEventListener('click', showMonthly));
+    document.querySelectorAll('.saju-trigger').forEach(card => {
+        card.addEventListener('click', (e) => {
+            currentSelectedService = e.currentTarget.dataset.service;
+            hideAll();
+            sections.analysis.style.display = 'grid';
+            window.scrollTo(0,0);
+        });
+    });
 
-    // --- Date Selectors Init ---
+    document.getElementById('btnBack').addEventListener('click', showHome);
+
+    // --- Selectors Init ---
     const yearSelect = document.getElementById('birthYear');
-    const monthSelect = document.getElementById('birthMonth');
-    const daySelect = document.getElementById('birthDay');
     if(yearSelect) {
         for (let y = 2024; y >= 1930; y--) {
             const o = document.createElement('option'); o.value = y; o.textContent = `${y}년`; yearSelect.appendChild(o);
         }
         yearSelect.value = "1990";
-        for (let m = 1; m <= 12; m++) {
-            const o = document.createElement('option'); o.value = m; o.textContent = `${m.toString().padStart(2, '0')}월`; monthSelect.appendChild(o);
-        }
-        for (let d = 1; d <= 31; d++) {
-            const o = document.createElement('option'); o.value = d; o.textContent = `${d.toString().padStart(2, '0')}일`; daySelect.appendChild(o);
-        }
+        const mS = document.getElementById('birthMonth'), dS = document.getElementById('birthDay');
+        for (let m = 1; m <= 12; m++) { const o = document.createElement('option'); o.value = m; o.textContent = `${m}월`; mS.appendChild(o); }
+        for (let d = 1; d <= 31; d++) { const o = document.createElement('option'); o.value = d; o.textContent = `${d}일`; dS.appendChild(o); }
     }
 
-    // --- Theme Handling ---
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
+    // --- Theme ---
+    document.getElementById('themeToggle').addEventListener('click', () => {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
     });
 
-    // --- Saju Analysis ---
+    // --- Analysis ---
     const sajuForm = document.getElementById('sajuForm');
-    const loading = document.getElementById('loading');
-
-    if(sajuForm) {
-        sajuForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            loading.style.display = 'block';
-            resultArea.style.display = 'none';
-
-            setTimeout(() => {
-                loading.style.display = 'none';
-                resultArea.style.display = 'block';
-                const name = document.getElementById('userName').value;
-                resultArea.innerHTML = `
-                    <div style="border-bottom:2px solid #503396; padding-bottom:1rem; margin-bottom:2rem;">
-                        <h3>${name}님의 맞춤 분석 결과</h3>
-                    </div>
-                    <div class="result-section">
-                        <h4>🔮 분석 요약</h4>
-                        <p>선택하신 서비스에 대한 AI 심층 분석 결과, 올해 ${name}님에게는 매우 긍정적인 변화의 기운이 감돌고 있습니다. 하반기로 갈수록 금전운과 명예운이 상승하는 형국이니 차분히 준비하시기 바랍니다.</p>
-                    </div>
-                `;
-                resultArea.scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
-        });
-    }
+    if(sajuForm) sajuForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const loading = document.getElementById('loading');
+        loading.style.display = 'block';
+        sections.result.style.display = 'none';
+        setTimeout(() => {
+            loading.style.display = 'none';
+            sections.result.style.display = 'block';
+            sections.result.innerHTML = `<h3>분석 결과</h3><p>당신의 운세 기운이 매우 맑습니다. 상세한 내용은 전문가 상담을 추천드립니다.</p>`;
+            sections.result.scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
+    });
 });
