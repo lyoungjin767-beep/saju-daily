@@ -1,27 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Hero Slider ---
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    if (slides.length > 1) {
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 4000);
+    // --- Navigation Highlights ---
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            navLinks.forEach(l => l.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+        });
+    });
+
+    // --- Quick Menu Interactions ---
+    const quickMenuItems = document.querySelectorAll('.quick-menu-item');
+    quickMenuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const menuName = item.querySelector('p').textContent;
+            console.log(`${menuName} 메뉴가 클릭되었습니다.`);
+            // alert(`${menuName} 페이지로 이동합니다.`);
+        });
+    });
+
+    // --- Search Icon Interaction ---
+    const searchIcon = document.querySelector('.fa-search');
+    if (searchIcon) {
+        searchIcon.addEventListener('click', () => {
+            const query = prompt('검색어를 입력하세요:');
+            if (query) {
+                console.log(`검색어: ${query}`);
+            }
+        });
     }
 
-    // --- Navigation (Placeholder) ---
-    // In a real app, this would hide/show sections.
-    document.querySelectorAll('.nav-home, .nav-newyear, .nav-monthly, .nav-crush').forEach(nav => {
-        nav.addEventListener('click', e => {
-            e.preventDefault();
-            alert(`'${e.target.textContent}' 메뉴를 클릭했습니다.`);
+    // --- Mobile Menu Interaction ---
+    const menuIcon = document.querySelector('.fa-bars');
+    if (menuIcon) {
+        menuIcon.addEventListener('click', () => {
+            console.log('사이드바 메뉴를 엽니다.');
         });
-    });
-
-    document.querySelectorAll('.saju-trigger').forEach(card => {
-        card.addEventListener('click', e => {
-            alert(`'${e.currentTarget.querySelector('p').textContent}' 운세를 선택했습니다.`);
-        });
-    });
+    }
 });
