@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Animal Test & Lotto Generator</title>
+    <title>다목적 AI 허브 - 동물상 테스트 & 로또 생성기</title>
     <link rel="stylesheet" href="./index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,46 +15,46 @@
     <div class="theme-toggle-container">
         <button id="themeToggle" class="theme-btn">
             <span id="themeIcon">🌙</span>
-            <span id="themeText">Dark Mode</span>
+            <span id="themeText">다크 모드</span>
         </button>
     </div>
     
     <div class="app-container">
         <header class="app-header">
-            <h1>Multipurpose AI Hub</h1>
-            <p>Choose your tool and have fun!</p>
+            <h1>다목적 AI 허브</h1>
+            <p>원하는 도구를 선택하고 즐겨보세요!</p>
             
             <nav class="feature-nav">
-                <button id="navAnimal" class="nav-btn active">Animal Face Test</button>
-                <button id="navLotto" class="nav-btn">Lotto Generator</button>
+                <button id="navAnimal" class="nav-btn active">동물상 테스트</button>
+                <button id="navLotto" class="nav-btn">로또 생성기</button>
             </nav>
         </header>
         
         <main class="main-content">
-            <!-- Animal Face Test Section -->
+            <!-- 동물상 테스트 섹션 -->
             <section id="animalSection" class="feature-section active">
                 <div class="test-panel">
                     <div class="upload-area" id="uploadArea">
-                        <img id="faceImage" src="https://via.placeholder.com/300?text=Upload+Your+Photo" alt="Face Preview">
+                        <img id="faceImage" src="https://via.placeholder.com/300?text=사진을+업로드하세요" alt="Face Preview">
                         <input type="file" id="imageUpload" accept="image/*" hidden>
                         <div class="button-group">
-                            <button class="btn btn-primary" onclick="document.getElementById('imageUpload').click()">Upload Photo</button>
-                            <button id="webcamBtn" class="btn btn-secondary">Use Real-time Webcam</button>
+                            <button class="btn btn-primary" onclick="document.getElementById('imageUpload').click()">사진 선택</button>
+                            <button id="webcamBtn" class="btn btn-secondary">실시간 웹캠 사용</button>
                         </div>
                         <div id="webcam-container"></div>
                     </div>
                     
-                    <div id="loading" class="loading-spinner" style="display: none;">Analyzing...</div>
+                    <div id="loading" class="loading-spinner" style="display: none;">분석 중...</div>
                     
                     <div id="resultContainer" class="result-container" style="display: none;">
-                        <h2 id="resultTitle">You look like a...</h2>
+                        <h2 id="resultTitle">당신의 관상은...</h2>
                         <div class="progress-container">
-                            <div class="progress-bar-label">Dog</div>
+                            <div class="progress-bar-label">강아지</div>
                             <div class="progress-bar"><div id="dogBar" class="progress-fill dog-fill"></div></div>
                             <span id="dogPercent">0%</span>
                         </div>
                         <div class="progress-container">
-                            <div class="progress-bar-label">Cat</div>
+                            <div class="progress-bar-label">고양이</div>
                             <div class="progress-bar"><div id="catBar" class="progress-fill cat-fill"></div></div>
                             <span id="catPercent">0%</span>
                         </div>
@@ -62,7 +62,7 @@
                 </div>
             </section>
 
-            <!-- Lotto Generator Section -->
+            <!-- 로또 생성기 섹션 -->
             <section id="lottoSection" class="feature-section">
                 <div class="generator-panel">
                     <div class="numbers-display" id="numbersDisplay">
@@ -75,14 +75,14 @@
                     </div>
                     
                     <div class="generator-actions">
-                        <button id="generateBtn" class="btn btn-primary btn-large">Generate Numbers</button>
-                        <button id="resetHistoryBtn" class="btn btn-secondary">Clear History</button>
+                        <button id="generateBtn" class="btn btn-primary btn-large">번호 생성</button>
+                        <button id="resetHistoryBtn" class="btn btn-secondary">기록 삭제</button>
                     </div>
                     
                     <div class="history-panel">
-                        <h2>Recent Lucky Numbers</h2>
+                        <h2>최근 행운의 번호</h2>
                         <div id="historyList" class="history-list">
-                            <p class="empty-msg">No history yet.</p>
+                            <p class="empty-msg">아직 생성된 기록이 없습니다.</p>
                         </div>
                     </div>
                 </div>
@@ -91,24 +91,24 @@
 
         <section class="partnership-section">
             <div class="partnership-container">
-                <h2>Partnership Inquiry</h2>
-                <p>Interested in working together? Send us a message.</p>
+                <h2>제휴 문의</h2>
+                <p>함께 협업하고 싶으신가요? 메시지를 보내주세요.</p>
                 <form action="https://formspree.io/f/xwvnqpew" method="POST" id="partnershipForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="partnerName">Name</label>
-                            <input type="text" name="name" id="partnerName" placeholder="Your Name" required>
+                            <label for="partnerName">이름</label>
+                            <input type="text" name="name" id="partnerName" placeholder="성함 또는 업체명" required>
                         </div>
                         <div class="form-group">
-                            <label for="partnerEmail">Email</label>
+                            <label for="partnerEmail">이메일</label>
                             <input type="email" name="email" id="partnerEmail" placeholder="your@email.com" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="partnerMessage">Message</label>
-                        <textarea name="message" id="partnerMessage" rows="4" placeholder="How can we help you?" required></textarea>
+                        <label for="partnerMessage">내용</label>
+                        <textarea name="message" id="partnerMessage" rows="4" placeholder="문의하실 내용을 입력해 주세요." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                    <button type="submit" class="btn btn-primary">문의 보내기</button>
                 </form>
             </div>
         </section>

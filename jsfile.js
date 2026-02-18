@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (theme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
             themeIcon.textContent = '☀️';
-            themeText.textContent = 'Light Mode';
+            themeText.textContent = '라이트 모드';
         } else {
             document.documentElement.removeAttribute('data-theme');
             themeIcon.textContent = '🌙';
-            themeText.textContent = 'Dark Mode';
+            themeText.textContent = '다크 모드';
         }
     }
 
@@ -120,11 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
             resultContainer.style.display = 'block';
             webcamContainer.innerHTML = '';
             webcamContainer.appendChild(webcam.canvas);
-            webcamBtn.textContent = "Stop Webcam";
+            webcamBtn.textContent = "웹캠 중단";
             webcamBtn.classList.replace('btn-secondary', 'btn-primary');
             window.requestAnimationFrame(webcamLoop);
         } catch (e) {
-            alert("Webcam access denied or error occurred.");
+            alert("웹캠 접근 권한이 없거나 오류가 발생했습니다.");
             loading.style.display = 'none';
             faceImage.style.display = 'block';
         }
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             webcam.stop();
             webcam = null;
             webcamContainer.innerHTML = '';
-            webcamBtn.textContent = "Use Real-time Webcam";
+            webcamBtn.textContent = "실시간 웹캠 사용";
             webcamBtn.classList.replace('btn-primary', 'btn-secondary');
             faceImage.style.display = 'block';
         }
@@ -164,9 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('catPercent').textContent = catProb + '%';
         
         const title = document.getElementById('resultTitle');
-        if (parseInt(dogProb) > parseInt(catProb)) title.textContent = "You look like a Friendly Dog! 🐶";
-        else if (parseInt(catProb) > parseInt(dogProb)) title.textContent = "You look like a Mysterious Cat! 🐱";
-        else title.textContent = "You are a perfect mix! 🐾";
+        if (parseInt(dogProb) > parseInt(catProb)) title.textContent = "당신은 다정한 강아지상입니다! 🐶";
+        else if (parseInt(catProb) > parseInt(dogProb)) title.textContent = "당신은 신비로운 고양이상입니다! 🐱";
+        else title.textContent = "당신은 강아지와 고양이가 섞인 매력적인 관상입니다! 🐾";
     }
 
     // --- Lotto Generator Logic ---
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateHistoryUI() {
         if(history.length === 0) {
-            historyList.innerHTML = '<p class="empty-msg">No history yet.</p>';
+            historyList.innerHTML = '<p class="empty-msg">아직 기록이 없습니다.</p>';
             return;
         }
         historyList.innerHTML = history.map(h => `
