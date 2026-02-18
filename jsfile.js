@@ -1,61 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sajuForm = document.getElementById('sajuForm');
-    const loading = document.getElementById('loading');
-    const resultArea = document.getElementById('resultArea');
+    // --- Initialize Selectors ---
+    const yearSelect = document.getElementById('birthYear');
+    const monthSelect = document.getElementById('birthMonth');
+    const daySelect = document.getElementById('birthDay');
+
+    const currentYear = new Date().getFullYear();
+    for (let y = currentYear; y >= 1930; y--) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = `${y}년`;
+        yearSelect.appendChild(opt);
+    }
+    yearSelect.value = "1990";
+
+    for (let m = 1; m <= 12; m++) {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = `${m.toString().padStart(2, '0')}월`;
+        monthSelect.appendChild(opt);
+    }
+
+    for (let d = 1; d <= 31; d++) {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = `${d.toString().padStart(2, '0')}일`;
+        daySelect.appendChild(opt);
+    }
 
     // --- Theme Handling ---
     const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-
-    function updateThemeUI(theme) {
-        if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeIcon.textContent = '☀️';
-            themeText.textContent = '라이트 모드';
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-            themeIcon.textContent = '🌙';
-            themeText.textContent = '다크 모드';
-        }
-    }
-
     const currentTheme = localStorage.getItem('theme') || 'light';
-    updateThemeUI(currentTheme);
+    if (currentTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
     themeToggle.addEventListener('click', () => {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const newTheme = isDark ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        updateThemeUI(newTheme);
     });
 
-    // --- Saju Logic Helpers ---
-    const ZODIACS = ["원숭이", "닭", "개", "돼지", "쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양"];
-    const CONSTELLATIONS = [
-        { name: "염소자리", start: "0120" }, { name: "물병자리", start: "0219" },
-        { name: "물고기자리", start: "0321" }, { name: "양자리", start: "0420" },
-        { name: "황소자리", start: "0521" }, { name: "쌍둥이자리", start: "0621" },
-        { name: "게자리", start: "0723" }, { name: "사자자리", start: "0823" },
-        { name: "처녀자리", start: "0923" }, { name: "천칭자리", start: "1023" },
-        { name: "전갈자리", start: "1123" }, { name: "사수자리", start: "1222" },
-        { name: "염소자리", start: "1231" }
-    ];
+    // --- Saju Analysis Logic ---
+    const sajuForm = document.getElementById('sajuForm');
+    const loading = document.getElementById('loading');
+    const resultArea = document.getElementById('resultArea');
 
-    function getZodiac(year) { return ZODIACS[year % 12]; }
-    function getConstellation(dateStr) {
-        const mmdd = dateStr.replace(/-/g, '').substring(4);
-        return CONSTELLATIONS.find(c => mmdd <= c.start).name;
-    }
-
-    // --- Main Form Logic ---
     sajuForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const birthDate = document.getElementById('birthDate').value;
-        const calendarType = document.getElementById('calendarType').value;
-        const birthHour = document.getElementById('birthHour').value;
-        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const name = document.getElementById('userName').value;
+        const gender = document.getElementById('gender').value === 'male' ? '남성' : '여성';
+        const year = yearSelect.value;
+        const month = monthSelect.value;
+        const day = daySelect.value;
+        const hour = document.getElementById('birthHour').value;
+        const calendar = document.getElementById('calendarType').value === 'solar' ? '양력' : '음력';
 
         resultArea.style.display = 'none';
         loading.style.display = 'block';
@@ -64,90 +62,40 @@ document.addEventListener('DOMContentLoaded', () => {
             loading.style.display = 'none';
             resultArea.style.display = 'block';
             
-            const year = parseInt(birthDate.substring(0, 4));
-            const zodiac = getZodiac(year);
-            const constellation = getConstellation(birthDate);
-            const type = year % 2 === 0 ? "현실형" : "이상형";
-            
             resultArea.innerHTML = `
-                <div class="summary-card">
-                    <div class="summary-item">
-                        <div class="summary-label">운명 타입</div>
-                        <div class="summary-value">${type}</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">띠</div>
-                        <div class="summary-value">${zodiac}띠</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">별자리</div>
-                        <div class="summary-value">${constellation}</div>
-                    </div>
+                <div class="result-header">
+                    <h3>${name}님의 사주 분석 결과</h3>
+                    <p>${year}년 ${month}월 ${day}일 (${calendar}) ${hour === 'unknown' ? '시간모름' : hour + '시'} 생</p>
+                </div>
+                
+                <div class="result-section">
+                    <h4>🌟 인생 총운</h4>
+                    <p>당신의 사주는 강인한 생명력과 유연한 사고를 동시에 지닌 '수목공생(水木共生)'의 형상을 띠고 있습니다. 어떤 환경에서도 뿌리를 내리는 끈기 덕분에 초년의 시행착오를 거쳐 중년 이후 안정적인 번영을 누릴 운명입니다. 특히 인복이 많아 귀인의 도움으로 큰 위기를 넘기는 경우가 많습니다.</p>
                 </div>
 
-                <div class="advice-box">
-                    ✨ 오늘의 조언: "오늘은 새로운 결정보다는 과거를 정리하고 기운을 보강하는 날입니다. 동북쪽의 기운이 길합니다."
+                <div class="result-section">
+                    <h4>💰 재물 및 사업운</h4>
+                    <p>태어난 날의 기운이 토(土)의 성질을 품고 있어 재물을 모으는 능력이 탁월합니다. 다만, 씀씀이가 큰 편이니 자산 관리에 체계적인 계획이 필요합니다. 30대 중반부터 재운이 크게 열리는 시기가 오며, 본인의 기술이나 전문 지식을 활용한 사업에서 큰 성공을 거둘 확률이 높습니다.</p>
                 </div>
 
-                <div class="report-section">
-                    <div class="section-title">🔮 기본 사주 요약</div>
-                    <div class="section-content">
-                        본 사주는 <strong>오행(五行)</strong> 중 금(金)의 기운이 정수리에 머물고 토(土)의 기운이 기반을 지탱하는 형상입니다. 
-                        <strong>음양(陰陽)</strong>의 조화가 안정적이며, 특히 <strong>일주(日柱)</strong>의 기운이 강하여 자수성가할 운명을 타고났습니다. 
-                        초년의 고생이 중년의 거대한 자산이 되는 전형적인 대기만성형 구조입니다.
-                    </div>
+                <div class="result-section">
+                    <h4>❤️ 연애 및 배우자운</h4>
+                    <p>다정다감한 성격으로 주변에 이성이 끊이지 않는 매력적인 사주입니다. 배우자 자리에는 본인을 지지해주고 정서적 안정을 주는 인연이 들어와 있습니다. 상대방과의 소통에서 솔직함을 유지한다면 화목한 가정을 꾸릴 수 있으며, 늦게 만나는 인연일수록 합이 더 좋습니다.</p>
                 </div>
 
-                <div class="report-section">
-                    <div class="section-title">💼 직업 및 재물운</div>
-                    <div class="section-content">
-                        재물운 지수는 매우 높으나, <strong>시주(時柱)</strong>의 흐름상 재물이 한꺼번에 들어오기보다 계단식으로 상승하는 패턴을 보입니다. 
-                        분석력이 뛰어나 전문직이나 기술 기반의 사업에서 큰 성취를 이룰 수 있습니다. 
-                        <div class="metric-container">
-                            <div class="metric-row">
-                                <span class="metric-label">재물 안정도</span>
-                                <div class="metric-bar"><div class="metric-fill" style="width: 85%"></div></div>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">직업 성취도</span>
-                                <div class="metric-bar"><div class="metric-fill" style="width: 72%"></div></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="result-section">
+                    <h4>💪 건강 및 조언</h4>
+                    <p>순환기 계통과 간 건강에 유의해야 하는 체질입니다. 과로를 피하고 규칙적인 수면 습관을 갖는 것이 가장 큰 개운법입니다. 푸른색 계열의 옷이나 소품이 당신의 기운을 보강해주며, 중요한 결정은 태양이 가장 높은 정오 시간에 내리는 것이 길합니다.</p>
                 </div>
 
-                <div class="report-section">
-                    <div class="section-title">❤️ 연애 및 대인관계</div>
-                    <div class="section-content">
-                        감성보다는 이성이 앞서는 타입으로, 상대방에게 신뢰를 주는 연애를 선호합니다. 
-                        올해는 <strong>관성(官星)</strong>의 기운이 들어와 뜻밖의 인연이 닿을 수 있는 시기입니다. 
-                        주변 사람들과의 관계에서는 묵직한 존재감을 발휘하며, 좁고 깊은 인맥이 평생의 복이 됩니다.
-                        <div class="metric-container">
-                            <div class="metric-row">
-                                <span class="metric-label">연애운 지수</span>
-                                <div class="metric-bar"><div class="metric-fill" style="width: 68%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="report-section">
-                    <div class="section-title">📅 2026년 대운 흐름</div>
-                    <div class="section-content">
-                        2026년 병오년(丙午年)은 당신에게 <strong>화(火)</strong>의 기운이 강하게 작용하는 해입니다. 
-                        상반기에는 다소 정체기가 있을 수 있으나, 가을을 기점으로 막혔던 기운이 뚫리며 명예운이 상승합니다. 
-                        문서상의 이득이 있을 수 있으니 계약 관련 사항을 꼼꼼히 챙기시기 바랍니다.
-                    </div>
-                </div>
-
-                <div class="report-section">
-                    <div class="section-title">⚠️ 주의해야 할 점</div>
-                    <div class="section-content">
-                        본인의 완벽주의 성향이 스스로를 갉아먹을 수 있습니다. <strong>식신(食神)</strong>의 기운이 과해지면 건강을 해칠 수 있으니, 
-                        규칙적인 휴식과 하체 근력 강화에 힘쓰십시오. 특히 가을철 호흡기 계통 관리가 필수적입니다.
-                    </div>
+                <div class="result-section">
+                    <h4>📅 올해의 한마디</h4>
+                    <p>"새로운 도전보다는 내실을 다지고 인맥을 정비하는 해입니다. 가을철에 뜻밖의 기회가 찾아올 것이니 차분히 준비하십시오."</p>
                 </div>
             `;
-        }, 2000);
+            
+            // Scroll to results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
     });
 });
