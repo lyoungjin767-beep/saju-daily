@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const homeSection = document.getElementById('homeSection');
+    const monthlySection = document.getElementById('monthlySection');
     const analysisSection = document.getElementById('analysisSection');
     const resultArea = document.getElementById('resultArea');
     const sajuTriggers = document.querySelectorAll('.saju-trigger');
@@ -7,13 +8,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeLogo = document.getElementById('homeLogo');
     const serviceTitleDisplay = document.querySelector('.service-title');
 
+    const navHome = document.querySelector('.nav-home');
+    const navNewYear = document.querySelector('.nav-newyear');
+    const navMonthly = document.querySelector('.nav-monthly');
+
     let currentSelectedService = '';
 
     // --- Navigation Logic ---
-    function showHome() {
-        homeSection.style.display = 'block';
+    function hideAll() {
+        homeSection.style.display = 'none';
+        monthlySection.style.display = 'none';
         analysisSection.style.display = 'none';
         resultArea.style.display = 'none';
+        [navHome, navNewYear, navMonthly].forEach(el => el.classList.remove('active'));
+    }
+
+    function showHome() {
+        hideAll();
+        homeSection.style.display = 'block';
+        navHome.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function showNewYear() {
+        hideAll();
+        homeSection.style.display = 'block'; // New year is currently part of home
+        navNewYear.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function showMonthly() {
+        hideAll();
+        monthlySection.style.display = 'block';
+        navMonthly.classList.add('active');
         window.scrollTo(0, 0);
     }
 
@@ -25,13 +52,24 @@ document.addEventListener('DOMContentLoaded', () => {
         serviceTitleDisplay.textContent = categoryName.replace(/[\[\]]/g, '');
         
         homeSection.style.display = 'none';
+        monthlySection.style.display = 'none';
         analysisSection.style.display = 'grid';
         window.scrollTo(0, 0);
     }
 
     sajuTriggers.forEach(card => card.addEventListener('click', showAnalysis));
-    btnBack.addEventListener('click', showHome);
+    btnBack.addEventListener('click', () => {
+        if (currentSelectedService && currentSelectedService.startsWith('monthly-')) {
+            showMonthly();
+        } else {
+            showHome();
+        }
+    });
+    
     homeLogo.addEventListener('click', showHome);
+    navHome.addEventListener('click', showHome);
+    navNewYear.addEventListener('click', showNewYear);
+    navMonthly.addEventListener('click', showMonthly);
 
     // --- Date Selectors Init ---
     const yearSelect = document.getElementById('birthYear');
@@ -73,6 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('userName').value;
 
             switch(currentSelectedService) {
+                // Monthly fortunes
+                case 'monthly-love':
+                    content = `<h4>💖 [월간 애정운] 2월 분석</h4>
+                               <p>${name}님의 2월 애정운은 '설렘'으로 가득합니다. 솔로라면 새로운 인연이 예기치 못한 곳에서 나타날 것이며, 커플이라면 서로의 마음을 확인하는 깊은 대화가 필요한 달입니다.</p>`;
+                    break;
+                case 'monthly-destiny':
+                    content = `<h4>🌱 [월간 운명] 2월의 길</h4>
+                               <p>${name}님의 2월 운명은 '성장'을 향해 나아가고 있습니다. 새로운 배움이나 도전을 시작하기에 최적의 시기이며, 노력한 만큼의 보상이 따를 것입니다.</p>`;
+                    break;
+                // ... Existing cases
                 case 'future3':
                     content = `<h4>🔮 [3개월 후의 미래] 분석 결과</h4>
                                <p>${name}님의 향후 3개월은 '결실의 계절'입니다. 그동안 공들여온 일들이 구체적인 성과로 나타나기 시작하며, 특히 금전적인 보상이 따르는 시기입니다. 2개월 차에 뜻밖의 조력자를 만날 운명이니 대인관계에 유의하십시오.</p>`;
@@ -95,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 case 'tojeong':
                     content = `<h4>📜 [토정비결] 2026 해법풀이</h4>
-                               <p>${name}님의 올해 토정비결 괘는 '청룡이 여의주를 얻는 격'입니다. 막혔던 운세가 풀리고 만사가 형통할 것이나, 다만 주변의 시기를 살 수 있으니 겸손한 태도를 유지하는 것이 개운의 열쇠입니다.</p>`;
+                               <p>${name}님의 올해 토정비결 괘는 '청룡이 여의주를 얻는 격'입니다. 막혔던 운세가 풀리고 만사가 형통할 것이나, 다만 주변의 시기를 살 수 있으니 겸솔한 태도를 유지하는 것이 개운의 열쇠입니다.</p>`;
                     break;
                 case 'money':
                     content = `<h4>💰 [금전궁합] 분석 결과</h4>
