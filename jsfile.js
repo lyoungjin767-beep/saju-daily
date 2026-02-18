@@ -15,11 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Hero Slider ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    if(slides.length) setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-    }, 4000);
+    const sliderDotsContainer = document.getElementById('sliderDots');
+    if (slides.length) {
+        // Create dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            sliderDotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % slides.length);
+        }
+
+        setInterval(nextSlide, 4000); // Change image every 4 seconds
+    }
 
     // --- Navigation Logic ---
     function hideAll() {
@@ -77,7 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('btnBack').addEventListener('click', showHome);
 
-    // --- Selectors Init ---
+    // Icon menu listeners
+    document.querySelectorAll('.icon-item.nav-newyear').forEach(el => el.addEventListener('click', showNewYear));
+    document.querySelectorAll('.icon-item.nav-crush').forEach(el => el.addEventListener('click', showCrush));
+    document.querySelectorAll('.icon-item.nav-monthly').forEach(el => el.addEventListener('click', showMonthly));
+
+    // --- Date Selectors Init ---
     const yearSelect = document.getElementById('birthYear');
     if(yearSelect) {
         for (let y = 2024; y >= 1930; y--) {
@@ -89,13 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let d = 1; d <= 31; d++) { const o = document.createElement('option'); o.value = d; o.textContent = `${d}일`; dS.appendChild(o); }
     }
 
-    // --- Theme ---
-    document.getElementById('themeToggle').addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    });
-
-    // --- Analysis ---
+    // --- Saju Analysis ---
     const sajuForm = document.getElementById('sajuForm');
     if(sajuForm) sajuForm.addEventListener('submit', (e) => {
         e.preventDefault();
