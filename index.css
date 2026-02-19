@@ -33,6 +33,21 @@ header {
     margin-left:60px;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-orb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d8e8ff;
+    box-shadow: 0 8px 18px rgba(15, 52, 96, 0.28);
+}
+
 .logo h1 {
     font-size: 24px;
     color: #333;
@@ -314,6 +329,9 @@ nav ul li a.active::after {
 /* Responsive (simplified) */
 @media (max-width: 768px) {
     .header-container { flex-direction: column; }
+    .logo { margin-bottom: 10px; }
+    .logo-orb { width: 38px; height: 38px; }
+    .logo h1 { font-size: 22px; }
     nav ul { margin-top: 10px; flex-wrap: wrap; justify-content: center; }
     .banner-content { flex-direction: column; text-align: center; }
     .banner-image-assets { margin-top: 20px; }
